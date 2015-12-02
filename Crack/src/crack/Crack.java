@@ -1,15 +1,14 @@
 package crack;
 
+import crack.Clue;
+
 import java.util.Random;
 import java.util.Scanner;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 
-public class Crack implements Runnable{
+public class Crack{
 	static Random rand = new Random();
-	static boolean gameOver = false;
+	public static boolean gameOver = false;
 	
 	public static void main(String[] args){
 		Scanner scan = new Scanner(System.in);
@@ -23,8 +22,7 @@ public class Crack implements Runnable{
 		
 		String guess;
 		boolean gameWon = false;
-	    boolean gameOver = false;
-		(new Thread(new Crack())).start();
+		new Thread(new Clue()).start();
 		while (!gameOver){
 			guess = scan.next();
 			if (guess == code){
@@ -37,7 +35,7 @@ public class Crack implements Runnable{
 		}
 		scan.close();
 	}
-	private static void clue(){
+	public void clue(){
 		System.out.println("Clue: the sky is cool: ");
 		
 	}
@@ -48,18 +46,7 @@ public class Crack implements Runnable{
 		}
 		return code;
 	}
-	@Override
-	public void run() {
-		int i = 0;
-		while (i < 25 && !gameOver){
-			clue();
-			try {
-				Thread.sleep(200);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			i++;
-		}
+	public void setGameOver(){
 		gameOver = true;
 	}
 	
